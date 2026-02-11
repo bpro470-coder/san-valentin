@@ -3,37 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Edition</title>
+<title>Valentine Edition - Para Ti</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
     :root {
         --red-dark: #b11226;
+        --pink-bg: #ffe4e9;
+        --pink-border: #f6b8c4;
+        --text-color: #5a1a28;
         --gold: #DAA520;
-        --gold-light: #ffd700;
     }
 
     body {
         margin: 0;
         font-family: 'Cormorant Garamond', serif;
         background: #f8cdda;
+        overflow: hidden;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
+    }
+
+    .heart-bg {
+        position: absolute;
+        font-size: 20px;
+        animation: float 8s linear infinite;
+        opacity: 0.6;
+        z-index: -1;
+        color: #ff5e78;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
     .newspaper {
         background: #fff4f7;
         width: 90%;
-        max-width: 450px;
-        height: 85vh;
+        max-width: 500px;
+        height: 90vh;
         border: 1px solid #000;
         padding: 20px;
         box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         text-align: center;
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -41,162 +58,311 @@
         border-radius: 5px;
     }
 
-    /* --- ESTILO RELICARIO QUE SE ABRE --- */
+    .header {
+        width: 100%;
+        border-bottom: 2px solid var(--red-dark);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .brand {
+        font-family: 'Playfair Display', serif;
+        font-size: 38px;
+        color: var(--red-dark);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+
+    .date-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        text-transform: uppercase;
+        border-top: 1px solid var(--red-dark);
+        border-bottom: 1px solid var(--red-dark);
+        padding: 5px 0;
+        margin-top: 5px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        color: var(--text-color);
+        margin: 10px 0;
+        line-height: 1.1;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #333;
+        text-align: justify;
+        padding: 0 10px;
+    }
+
+    .photo-frame {
+        width: 100%;
+        max-width: 350px;
+        border: 1px solid #000;
+        padding: 5px;
+        margin: 15px 0;
+        background: white;
+        transform: rotate(-2deg);
+        box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .photo-frame img {
+        width: 100%;
+        display: block;
+        filter: sepia(20%);
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+        align-items: center;
+        width: 100%;
+    }
+
+    button {
+        padding: 15px 40px;
+        border: 2px solid var(--red-dark);
+        border-radius: 50px;
+        background: transparent;
+        color: var(--red-dark);
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        width: 80%;
+    }
+
+    button.primary {
+        background: var(--red-dark);
+        color: white;
+        box-shadow: 0 5px 15px rgba(177, 18, 38, 0.3);
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    .page {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        animation: fadeIn 1s;
+    }
+
+    .page.active {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- RELICARIO DE CORAZÓN QUE SE ABRE --- */
     .locket-container {
         position: relative;
-        width: 200px;
-        height: 180px;
-        margin: 30px 0;
+        width: 180px;
+        height: 160px;
+        margin: 40px auto;
         cursor: pointer;
         perspective: 1000px;
     }
 
-    /* La base derecha (donde está la J) */
+    /* Base interior (donde están las letras) */
     .locket-base {
         position: absolute;
         width: 100%;
         height: 100%;
         background: #fff;
-        border: 3px solid var(--gold);
-        clip-path: path('M100,180 C-40,120 -40,0 100,0 C240,0 240,120 100,180 Z');
+        clip-path: path('M90,160 C-30,110 -30,0 90,0 C210,0 210,110 90,160 Z');
+        border: 2px solid var(--gold);
         display: flex;
-        align-items: center;
-        justify-content: center;
         z-index: 1;
-        box-shadow: inset 0 0 15px var(--gold);
+        box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
     }
 
-    /* La tapa izquierda que se abre */
-    .locket-cover {
-        position: absolute;
-        width: 100%;
+    .base-half {
+        width: 50%;
         height: 100%;
-        background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold));
-        border: 2px solid #b8860b;
-        clip-path: path('M100,180 C-40,120 -40,0 100,0 C240,0 240,120 100,180 Z');
-        z-index: 5;
-        transform-origin: left center; /* Eje de apertura lateral */
-        transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    /* Decoración de la tapa cerrada */
-    .locket-cover::after {
-        content: '❤';
-        font-size: 40px;
-        color: rgba(0,0,0,0.2);
-    }
-
-    /* Estado Abierto */
-    .locket-container.open .locket-cover {
-        transform: rotateY(-140deg); /* Se abre hacia la izquierda */
-    }
-
-    .initial-box {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 20px;
-    }
-
-    .initial {
         font-family: 'Playfair Display', serif;
-        font-size: 60px;
+        font-size: 50px;
+        font-weight: bold;
         color: var(--red-dark);
-        font-weight: bold;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
-    /* --- RESTO DEL DISEÑO --- */
-    .page { display: none; flex-direction: column; align-items: center; width: 100%; animation: fadeIn 0.8s; }
-    .page.active { display: flex; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .header { width: 100%; border-bottom: 2px solid var(--red-dark); margin-bottom: 15px; }
-    .brand { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--red-dark); text-transform: uppercase; margin: 5px 0; }
-    
-    button {
-        padding: 12px 30px;
-        border: 2px solid var(--red-dark);
-        border-radius: 50px;
-        background: var(--red-dark);
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 10px;
-        transition: 0.3s;
+    /* Tapas del corazón */
+    .door {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background: radial-gradient(circle at center, #ffd700, #b8860b);
+        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2;
+        border: 1px solid rgba(0,0,0,0.2);
     }
 
-    #btnNo { background: white; color: var(--red-dark); position: relative; }
+    /* Puerta Izquierda */
+    .door-left {
+        left: 0;
+        clip-path: path('M90,160 C-30,110 -30,0 90,0 L90,160 Z');
+        transform-origin: left center;
+    }
 
-    .photo-frame img { width: 100%; max-width: 300px; border-radius: 10px; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin: 15px 0; }
+    /* Puerta Derecha */
+    .door-right {
+        right: 0;
+        clip-path: path('M0,160 C120,110 120,0 0,0 L0,160 Z');
+        transform-origin: right center;
+    }
+
+    /* Animación de apertura al hacer click */
+    .locket-container.open .door-left {
+        transform: rotateY(-140deg);
+    }
+
+    .locket-container.open .door-right {
+        transform: rotateY(140deg);
+    }
+
+    /* Detalles decorativos en el frente */
+    .door::after {
+        content: '❤';
+        position: absolute;
+        top: 40%;
+        font-size: 20px;
+        color: rgba(139, 30, 63, 0.5);
+    }
+    .door-left::after { right: 5px; }
+    .door-right::after { left: 5px; }
+
+    .click-hint {
+        font-size: 12px;
+        margin-top: 10px;
+        color: #888;
+        font-style: italic;
+    }
+
 </style>
 </head>
 <body>
 
-<div class="newspaper">
-    <div class="header">
-        <h1 class="brand">Valentine Edition</h1>
-        <p style="font-size: 12px; font-weight: bold; border-top: 1px solid black; padding: 3px;">FEBRERO 2026 • EDICIÓN ESPECIAL</p>
-    </div>
+    <audio id="bgMusic" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
 
-    <div id="p1" class="page active">
-        <h2>¿Quieres ser mi San Valentín?</h2>
-        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <button id="btnYes" onclick="next('p1','p2')">SÍ, ACEPTO</button>
-            <button id="btnNo" onmouseover="growYes()">NO</button>
+    <div id="hearts-container"></div>
+
+    <div class="newspaper">
+        <div class="header">
+            <div class="date-line">
+                <span>14 de Febrero 2026</span>
+                <span>Amor Verdadero</span>
+            </div>
+            <h1 class="brand">Valentine Edition</h1>
+            <div class="date-line">
+                <span>Edición Especial</span>
+                <span>Juntos Por Siempre</span>
+            </div>
         </div>
-    </div>
 
-    <div id="p2" class="page">
-        <p>"Después de que el mundo hiciera su magia..."</p>
-        <div class="photo-frame">
-            <img src="https://images.unsplash.com/photo-1621087367876-0f36894c2e68?auto=format&fit=crop&q=80&w=500" alt="Manos">
+        <div id="page1" class="page active">
+            <h1>La Gran Pregunta</h1>
+            <p style="text-align: center;">Después de analizar los hechos y comprobar nuestra química innegable... con el corazón en la mano:</p>
+            <h2 style="color: var(--red-dark); font-size: 40px; margin: 20px 0;">¿Quieres ser mi<br>San Valentín?</h2>
+            <div class="btn-container">
+                <button class="primary" id="btnYes" onclick="goToPage2()">¡Obvio, sí!</button>
+                <button id="btnNo" onclick="growYes()">No sé...</button>
+            </div>
         </div>
-        <button onclick="next('p2','p3')">Ver sorpresa final</button>
-    </div>
 
-    <div id="p3" class="page">
-        <h1>Para Siempre</h1>
-        
-        <div class="locket-container" onclick="this.classList.toggle('open')">
-            <div class="locket-cover">
-                <div style="transform: rotateY(180deg); backface-visibility: hidden;">
-                    <span class="initial">A</span>
+        <div id="page2" class="page">
+            <h1>Diario de Amor</h1>
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1621087367876-0f36894c2e68?q=80&w=1000&auto=format&fit=crop" alt="Nuestras manos">
+            </div>
+            <p>Después de que el mundo hiciera su magia y los caminos se cruzaran, quedó claro algo: quiero vivir este 14 de febrero contigo.</p>
+            <p>Mi corazón —la única fuente confiable en estos temas— lo tiene claro desde hace tiempo. Quiero un San Valentín a tu lado, lleno de amor, risas sinceras y momentos que se queden grabados.</p>
+            <button class="primary" onclick="goToPage3()" style="margin-top: 20px;">Ver mi sorpresa final ➡</button>
+        </div>
+
+        <div id="page3" class="page">
+            <h1>Es oficial</h1>
+            <p style="text-align: center;">Eres mi elección perfecta.</p>
+
+            <div class="locket-container" onclick="this.classList.toggle('open')">
+                <div class="locket-base">
+                    <div class="base-half">A</div>
+                    <div class="base-half">B</div>
+                </div>
+                <div class="door door-left"></div>
+                <div class="door door-right"></div>
+            </div>
+            
+            <p class="click-hint">(Toca el corazón para abrirlo)</p>
+
+            <div style="margin-top: 30px; border-top: 1px dashed #000; padding-top: 20px; width: 100%;">
+                <h3 style="color: var(--red-dark);">Vale por:</h3>
+                <div style="background: white; border: 2px dashed var(--red-dark); padding: 15px; margin: 10px 0;">
+                    🎟 Una cita sorpresa
+                </div>
+                <div style="background: white; border: 2px dashed var(--red-dark); padding: 15px; margin: 10px 0;">
+                    🎟 Una ida al cine
                 </div>
             </div>
-            <div class="locket-base">
-                <span class="initial">J</span>
-            </div>
         </div>
-
-        <p style="font-style: italic; font-size: 14px;">(Toca el corazón para abrir nuestro relicario)</p>
-        <p>A + J</p>
     </div>
-</div>
 
-<script>
-    let size = 18;
-    function growYes() {
-        size += 10;
-        document.getElementById('btnYes').style.fontSize = size + 'px';
-        document.getElementById('btnYes').style.padding = (size/2) + 'px ' + (size) + 'px';
-        
-        // Mueve el botón NO para que sea difícil darle click
-        const no = document.getElementById('btnNo');
-        no.style.top = Math.random() * 50 + 'px';
-        no.style.left = (Math.random() * 100 - 50) + 'px';
-    }
+    <script>
+        const heartsContainer = document.getElementById('hearts-container');
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heartsContainer.appendChild(heart);
+        }
 
-    function next(hide, show) {
-        document.getElementById(hide).classList.remove('active');
-        document.getElementById(show).classList.add('active');
-    }
-</script>
+        let scale = 1;
+        function growYes() {
+            scale += 0.4;
+            let btnYes = document.getElementById('btnYes');
+            btnYes.style.transform = `scale(${scale})`;
+            let btnNo = document.getElementById('btnNo');
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = Math.random() * 80 + '%';
+            btnNo.style.top = Math.random() * 80 + '%';
+        }
 
+        function goToPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+            var music = document.getElementById("bgMusic");
+            music.play().catch(e => console.log("Música requiere interacción"));
+        }
+
+        function goToPage3() {
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page3').classList.add('active');
+        }
+    </script>
 </body>
 </html>
