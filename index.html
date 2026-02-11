@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Edition - Alondra</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -18,8 +18,8 @@ body{
 /* Corazones flotando */
 .heart{
     position:absolute;
-    font-size:20px;
-    animation:float 6s linear infinite;
+    font-size:18px;
+    animation:float 7s linear infinite;
     opacity:0.8;
 }
 
@@ -34,11 +34,8 @@ body{
     width:100%;
     height:100vh;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
-    padding:40px;
-    text-align:center;
     transition:transform 1s ease, opacity 1s ease;
 }
 
@@ -47,13 +44,14 @@ body{
     opacity:0;
 }
 
-/* Estética periódico */
+/* Estilo periódico */
 .newspaper{
     background:#fff4f7;
     padding:40px;
-    max-width:800px;
     width:90%;
+    max-width:900px;
     box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    text-align:center;
 }
 
 .headline{
@@ -67,7 +65,6 @@ body{
 }
 
 .subline{
-    font-size:20px;
     border-bottom:1px solid #b11226;
     padding-bottom:10px;
     margin-bottom:20px;
@@ -76,12 +73,20 @@ body{
 .column{
     column-count:2;
     column-gap:40px;
-    font-size:18px;
+    text-align:left;
     line-height:1.6;
+    font-size:18px;
+}
+
+img{
+    max-width:300px;
+    border-radius:20px;
+    margin:20px 0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 button{
-    margin-top:25px;
+    margin-top:20px;
     padding:12px 30px;
     border:none;
     border-radius:30px;
@@ -102,8 +107,8 @@ button:hover{
 }
 
 .locket{
-    width:140px;
-    height:140px;
+    width:150px;
+    height:150px;
     position:relative;
     transform-style:preserve-3d;
     transition:transform 1s;
@@ -116,27 +121,27 @@ button:hover{
 
 .half{
     position:absolute;
-    width:70px;
-    height:140px;
-    background:gold;
-    border:3px solid #d4af37;
+    width:75px;
+    height:150px;
+    background:linear-gradient(145deg,#f7d774,#d4af37);
+    border:3px solid #b8962e;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:40px;
+    font-size:45px;
     font-weight:bold;
-    color:#b11226;
+    color:#8b1e3f;
     backface-visibility:hidden;
 }
 
 .left{
     left:0;
-    border-radius:70px 0 0 70px;
+    border-radius:75px 0 0 75px;
 }
 
 .right{
     right:0;
-    border-radius:0 70px 70px 0;
+    border-radius:0 75px 75px 0;
     transform:rotateY(180deg);
 }
 </style>
@@ -144,13 +149,25 @@ button:hover{
 
 <body>
 
+<!-- 🎵 MUSICA -->
+<audio id="musica" autoplay loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click",()=>{
+    document.getElementById("musica").play();
+});
+</script>
+
+<!-- CORAZONES -->
 <script>
 for(let i=0;i<30;i++){
     let h=document.createElement("div");
     h.className="heart";
     h.innerHTML="💖";
     h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(4+Math.random()*5)+"s";
+    h.style.animationDuration=(4+Math.random()*6)+"s";
     document.body.appendChild(h);
 }
 </script>
@@ -158,8 +175,9 @@ for(let i=0;i<30;i++){
 <!-- PAGINA 1 -->
 <div class="page" id="p1">
     <div class="newspaper">
-        <div class="headline">Valentine Edition 📰</div>
-        <div class="subline">Edición especial dedicada a Alondra 💗</div>
+        <div class="headline">Valentine Edition 📰💗</div>
+        <div class="subline">Edición especial dedicada a Alondra</div>
+        <img src="foto.jpg">
         <button onclick="next('p1','p2')">Leer noticia principal</button>
     </div>
 </div>
@@ -170,16 +188,16 @@ for(let i=0;i<30;i++){
         <div class="headline">Titular del Día</div>
         <div class="subline">Un corazón completamente enamorado 💘</div>
         <div class="column">
-            Se confirma que este 14 de febrero tiene nombre propio:
-            Alondra.
-            
-            Después de múltiples sonrisas,
-            miradas que dicen más que palabras
-            y momentos que se sienten eternos,
-            la decisión es clara.
+            Este 14 de febrero tiene un nombre que
+            lo hace especial: Alondra.
 
-            No existe mejor persona para compartir
-            este día que tú.
+            Después de cada sonrisa compartida,
+            cada mirada que acelera el corazón
+            y cada momento que se queda grabado,
+            solo hay una conclusión posible.
+
+            No quiero vivir este día
+            sin ti.
         </div>
         <button onclick="next('p2','p3')">Continuar ➡</button>
     </div>
@@ -188,8 +206,7 @@ for(let i=0;i<30;i++){
 <!-- PAGINA 3 -->
 <div class="page hidden" id="p3">
     <div class="newspaper">
-        <div class="headline">Declaración Oficial</div>
-        <div class="subline">Confirmado oficialmente:</div>
+        <div class="headline">Confirmado oficialmente:</div>
 
         <h2 style="color:#b11226;">Eres mi San Valentín 💖</h2>
 
@@ -201,9 +218,10 @@ for(let i=0;i<30;i++){
         </div>
 
         <p>
-        Gracias por existir en mi vida.
-        Prometo hacer de este día uno que
-        se quede guardado en nuestro corazón.
+        Gracias por hacer mi mundo más bonito.
+        Prometo que este 14 de febrero
+        será solo el comienzo
+        de muchos más juntos ❤️
         </p>
     </div>
 </div>
