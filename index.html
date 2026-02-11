@@ -5,16 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Edition - Alondra</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
-    font-family:'Playfair Display', serif;
-    background:#f7b6c2;
+    font-family:'Cormorant Garamond', serif;
+    background:#f6b8c4;
     overflow:hidden;
 }
 
+/* Corazones flotando */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Paginas */
 .page{
     position:absolute;
     width:100%;
@@ -23,8 +37,8 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    text-align:center;
     padding:40px;
+    text-align:center;
     transition:transform 1s ease, opacity 1s ease;
 }
 
@@ -33,130 +47,165 @@ body{
     opacity:0;
 }
 
-h1{
-    font-size:clamp(28px,5vw,60px);
+/* Estética periódico */
+.newspaper{
+    background:#fff4f7;
+    padding:40px;
+    max-width:800px;
+    width:90%;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+.headline{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(30px,5vw,55px);
+    border-top:3px solid #b11226;
+    border-bottom:3px solid #b11226;
+    padding:15px 0;
+    margin-bottom:20px;
     color:#8b1e3f;
 }
 
-.script{
-    font-family:'Great Vibes', cursive;
-    font-size:clamp(40px,6vw,80px);
-    color:#b11226;
+.subline{
+    font-size:20px;
+    border-bottom:1px solid #b11226;
+    padding-bottom:10px;
+    margin-bottom:20px;
+}
+
+.column{
+    column-count:2;
+    column-gap:40px;
+    font-size:18px;
+    line-height:1.6;
 }
 
 button{
-    padding:15px 35px;
-    font-size:18px;
-    border-radius:40px;
+    margin-top:25px;
+    padding:12px 30px;
     border:none;
+    border-radius:30px;
     background:#b11226;
     color:white;
     cursor:pointer;
-    margin-top:20px;
+    font-size:16px;
 }
 
 button:hover{
     transform:scale(1.05);
 }
 
-.heart-float{
-    position:absolute;
-    font-size:20px;
-    animation:float 6s linear infinite;
+/* RELICARIO */
+.lock-wrapper{
+    perspective:1000px;
+    margin:30px 0;
 }
 
-@keyframes float{
-    0%{transform:translateY(100vh);opacity:1;}
-    100%{transform:translateY(-10vh);opacity:0;}
-}
-
-/* Corazón abierto */
 .locket{
-    font-size:80px;
+    width:140px;
+    height:140px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 1s;
     cursor:pointer;
-    transition:transform 0.5s;
 }
 
-.open{
-    transform:scale(1.2) rotateY(180deg);
+.locket.open{
+    transform:rotateY(180deg);
+}
+
+.half{
+    position:absolute;
+    width:70px;
+    height:140px;
+    background:gold;
+    border:3px solid #d4af37;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    font-weight:bold;
+    color:#b11226;
+    backface-visibility:hidden;
+}
+
+.left{
+    left:0;
+    border-radius:70px 0 0 70px;
+}
+
+.right{
+    right:0;
+    border-radius:0 70px 70px 0;
+    transform:rotateY(180deg);
 }
 </style>
 </head>
 
 <body>
 
-<!-- CORAZONES FLOTANDO -->
 <script>
-for(let i=0;i<25;i++){
-    let heart=document.createElement("div");
-    heart.className="heart-float";
-    heart.innerHTML="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(3+Math.random()*5)+"s";
-    document.body.appendChild(heart);
+for(let i=0;i<30;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(4+Math.random()*5)+"s";
+    document.body.appendChild(h);
 }
 </script>
 
 <!-- PAGINA 1 -->
 <div class="page" id="p1">
-    <h1>Valentine Edition 📰💗</h1>
-    <p>Edición especial dedicada a</p>
-    <h1 class="script">Alondra</h1>
-    <button onclick="next('p1','p2')">Abrir edición 💌</button>
+    <div class="newspaper">
+        <div class="headline">Valentine Edition 📰</div>
+        <div class="subline">Edición especial dedicada a Alondra 💗</div>
+        <button onclick="next('p1','p2')">Leer noticia principal</button>
+    </div>
 </div>
 
 <!-- PAGINA 2 -->
 <div class="page hidden" id="p2">
-    <h1>Alondra...</h1>
-    <h1 class="script">¿Quieres ser mi San Valentín? 💘</h1>
-    <button onclick="next('p2','p3')">Sí, obvio 😍</button>
+    <div class="newspaper">
+        <div class="headline">Titular del Día</div>
+        <div class="subline">Un corazón completamente enamorado 💘</div>
+        <div class="column">
+            Se confirma que este 14 de febrero tiene nombre propio:
+            Alondra.
+            
+            Después de múltiples sonrisas,
+            miradas que dicen más que palabras
+            y momentos que se sienten eternos,
+            la decisión es clara.
+
+            No existe mejor persona para compartir
+            este día que tú.
+        </div>
+        <button onclick="next('p2','p3')">Continuar ➡</button>
+    </div>
 </div>
 
 <!-- PAGINA 3 -->
 <div class="page hidden" id="p3">
-    <h1>📰 Titular del día</h1>
-    <p>
-    “Un chico completamente enamorado confirma que
-    no quiere pasar ningún 14 de febrero sin Alondra.”
-    </p>
-    <p>💗 Eres mi persona favorita.</p>
-    <button onclick="next('p3','p4')">Siguiente página ➡</button>
-</div>
+    <div class="newspaper">
+        <div class="headline">Declaración Oficial</div>
+        <div class="subline">Confirmado oficialmente:</div>
 
-<!-- PAGINA 4 -->
-<div class="page hidden" id="p4">
-    <h1>Sección Especial 💞</h1>
-    <p>Desde que llegaste todo es más bonito.</p>
-    <p>Tu sonrisa ilumina mis días ✨</p>
-    <p>Tu voz calma mi mundo 🌎</p>
-    <p>Y tu amor me hace el más feliz 💘</p>
-    <button onclick="next('p4','p5')">Continuar ➡</button>
-</div>
+        <h2 style="color:#b11226;">Eres mi San Valentín 💖</h2>
 
-<!-- PAGINA 5 (DISCULPA) -->
-<div class="page hidden" id="p5">
-    <h1>Nota del editor 💌</h1>
-    <p>
-    Perdón por haber escrito mal tu nombre antes.
-    Porque Alondra se escribe perfecto,
-    igual que lo que siento por ti ❤️
-    </p>
-    <button onclick="next('p5','p6')">Última página 💖</button>
-</div>
+        <div class="lock-wrapper">
+            <div class="locket" id="locket" onclick="abrir()">
+                <div class="half left">A</div>
+                <div class="half right">B</div>
+            </div>
+        </div>
 
-<!-- PAGINA FINAL -->
-<div class="page hidden" id="p6" style="background:#c61d2d; color:white;">
-    <h1>Confirmado oficialmente:</h1>
-    <h1 class="script">Eres mi San Valentín 💘</h1>
-
-    <div id="locket" class="locket" onclick="abrir()">💛</div>
-    <p id="iniciales" style="display:none; font-size:30px;">A + B 💖</p>
-
-    <p style="max-width:400px;">
-    Gracias por decir que sí, Alondra.
-    Prepárate para un día lleno de amor,
-    abrazos inevitables y recuerdos eternos.
-    </p>
+        <p>
+        Gracias por existir en mi vida.
+        Prometo hacer de este día uno que
+        se quede guardado en nuestro corazón.
+        </p>
+    </div>
 </div>
 
 <script>
@@ -166,8 +215,7 @@ function next(actual,siguiente){
 }
 
 function abrir(){
-    document.getElementById("locket").innerHTML="💖";
-    document.getElementById("iniciales").style.display="block";
+    document.getElementById("locket").classList.toggle("open");
 }
 </script>
 
