@@ -13,42 +13,68 @@ body{
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    font-family:Arial, sans-serif;
+    font-family:'Segoe UI', sans-serif;
     background: linear-gradient(135deg,#ff4e8a,#ff9ecf);
+    overflow:hidden;
     text-align:center;
 }
 
 h1{
     color:white;
-    font-size:40px;
+    font-size:clamp(24px, 5vw, 40px);
+    margin-bottom:20px;
 }
 
 button{
     padding:15px 30px;
     font-size:18px;
     border:none;
-    border-radius:40px;
-    margin:15px;
+    border-radius:50px;
+    margin:10px;
     cursor:pointer;
-    transition:0.3s;
+    transition:0.3s ease;
 }
 
 #yesBtn{
     background:white;
     color:#ff2f6d;
+    font-weight:bold;
+}
+
+#yesBtn:hover{
+    transform:scale(1.1);
 }
 
 #noBtn{
     background:#ff2f6d;
     color:white;
-    position:absolute;
+    position:relative;
 }
 
 #mensaje{
     display:none;
     margin-top:20px;
-    font-size:25px;
+    font-size:clamp(20px, 4vw, 30px);
     color:white;
+    animation: aparecer 1s ease forwards;
+}
+
+@keyframes aparecer{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* corazones */
+.heart{
+    position:absolute;
+    color:white;
+    font-size:20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
 }
 </style>
 </head>
@@ -57,8 +83,10 @@ button{
 
 <h1>¿Quieres ser mi San Valentín? 💖</h1>
 
+<div>
 <button id="yesBtn">Sí obvio 😍</button>
 <button id="noBtn">No 😒</button>
+</div>
 
 <div id="mensaje">Sabía que dirías que sí 💕✨</div>
 
@@ -67,16 +95,33 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const mensaje = document.getElementById("mensaje");
 
-noBtn.addEventListener("mouseover",()=>{
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+let scale = 1;
+
+noBtn.addEventListener("mouseover", ()=>{
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 100 - 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
 });
 
-yesBtn.addEventListener("click",()=>{
+yesBtn.addEventListener("click", ()=>{
     mensaje.style.display="block";
+    yesBtn.style.transform="scale(1.2)";
+    lanzarCorazones();
 });
+
+function lanzarCorazones(){
+    for(let i=0;i<20;i++){
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(20+Math.random()*30)+"px";
+        heart.style.animationDuration=(3+Math.random()*3)+"s";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),5000);
+    }
+}
 </script>
 
 </body>
