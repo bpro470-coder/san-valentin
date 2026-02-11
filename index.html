@@ -17,7 +17,6 @@
 
     body {
         margin: 0;
-        /* Aplicando cursiva a todo el cuerpo */
         font-family: 'Cormorant Garamond', serif;
         font-style: italic; 
         background: #f8cdda;
@@ -68,7 +67,7 @@
 
     .brand {
         font-family: 'Playfair Display', serif;
-        font-size: 38px;
+        font-size: 28px;
         color: var(--red-dark);
         font-style: italic;
         text-transform: uppercase;
@@ -102,14 +101,13 @@
         padding: 0 10px;
     }
 
-    /* TRANSICIONES DELICADAS */
     .page {
         display: none;
         flex-direction: column;
         align-items: center;
         width: 100%;
         opacity: 0;
-        transition: opacity 1.2s ease-in-out; /* Transición lenta y delicada */
+        transition: opacity 1.2s ease-in-out;
     }
 
     .page.active {
@@ -119,7 +117,7 @@
 
     .photo-frame {
         width: 100%;
-        max-width: 300px;
+        max-width: 250px;
         border: 1px solid #000;
         padding: 5px;
         margin: 15px 0;
@@ -144,6 +142,8 @@
         cursor: pointer;
         transition: 0.3s;
         margin: 10px 0;
+        position: relative;
+        z-index: 10;
     }
 
     button.primary {
@@ -151,7 +151,6 @@
         color: white;
     }
 
-    /* --- TICKETS / VALES --- */
     .tickets-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -167,7 +166,6 @@
         position: relative;
         font-size: 14px;
         color: var(--red-dark);
-        /* Bordes de ticket */
         background-image: radial-gradient(circle at 0 50%, transparent 5px, white 5px), 
                           radial-gradient(circle at 100% 50%, transparent 5px, white 5px);
         box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
@@ -179,7 +177,6 @@
         padding: 5px;
     }
 
-    /* --- RELICARIO --- */
     .locket-container {
         position: relative;
         width: 150px;
@@ -199,7 +196,7 @@
         z-index: 1;
     }
 
-    .base-half { width: 50%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold; color: var(--red-dark); }
+    .base-half { width: 50%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; color: var(--red-dark); }
 
     .door { position: absolute; width: 50%; height: 100%; background: radial-gradient(circle, #ffd700, #b8860b); transition: transform 1.5s; z-index: 2; }
     .door-left { left: 0; clip-path: path('M75,130 C-25,90 -25,0 75,0 L75,130 Z'); transform-origin: left; }
@@ -220,57 +217,52 @@
     <div class="newspaper">
         <div class="header">
             <div class="date-line"><span>14 de Febrero 2026</span><span>Amor Eterno</span></div>
-            <h1 class="brand">PARA LA MUJER MAS BELLA EN EL MUNDO</h1>
+            <h1 class="brand">PARA LA MUJER MÁS BELLA</h1>
             <div class="date-line"><span>Especial para Alondra</span><span>Para Siempre</span></div>
         </div>
 
         <div id="page1" class="page active">
             <h1>La Gran Pregunta es...</h1>
-            <p>Después de que nuestros caminos se cruzaran, entendi que:
-                quiero vivir cada 14 de febrero a tu lado. Mi corazón —la única
-                fuente confiable en estos temas— lo tiene claro desde hace tiempo.
-                Eres mi refugio, mi sonrisa favorita y el amor que siempre esperé encontrar.</p>
-            <h2 style="font-size: 45px; color: var(--red-dark);">¿Alo, novia mia ¿Quieres ser mi San Valentín?</h2>
-            <div style="display:flex; flex-direction:column; align-items:center;">
+            <p>Después de que nuestros caminos se cruzaran, entendí que: quiero vivir cada 14 de febrero a tu lado. Eres mi refugio y mi sonrisa favorita.</p>
+            <h2 style="font-size: 35px; color: var(--red-dark);">¿Alo, novia mía, quieres ser mi San Valentín?</h2>
+            
+            <div id="btn-wrapper" style="position: relative; width: 100%; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                 <button class="primary" id="btnYes" onclick="nextPage('page1', 'page2')">¡Obvio, sí!</button>
-                <button id="btnNo" onmouseover="growYes()" onclick="growYes()">No sé...</button>
+                <button id="btnNo" onclick="growYes()" style="transition: all 0.2s ease;">No sé...</button>
             </div>
         </div>
 
         <div id="page2" class="page">
-            <h1>Nuestra historia se sigue escribiendo...</h1>
+            <h1>Nuestra historia...</h1>
             <div class="photo-frame">
                 <img src="foto.jpg" alt="Nosotros">
             </div>
-            <p>Quiero vivir este 14 de febrero contigo. Contigo cualquier día se siente especial, pero hoy quiero celebrar que somos un equipo perfecto diseñado por el destino. No imagino a nadie más a mi lado para compartir este San Valentín, porque contigo no solo comparto momentos, comparto mi vida entera y no dudes ni un segundo que seguire encontrando raznoes por las cuales amarte <3.</p>
+            <p>Contigo comparto mi vida entera y no dudes que seguiré encontrando razones para amarte.</p>
             <button class="primary" onclick="nextPage('page2', 'page3')">Ver mi sorpresa ➡</button>
         </div>
 
         <div id="page3" class="page">
             <h1>Eres mi elección perfecta</h1>
-
             <div class="locket-container" onclick="this.classList.toggle('open')">
                 <div class="locket-base">
-                    <div class="base-half">A + </div>
+                    <div class="base-half">A +</div>
                     <div class="base-half">B</div>
                 </div>
                 <div class="door door-left"></div>
                 <div class="door door-right"></div>
             </div>
-            
             <p style="font-size: 16px;">(Toca para abrir nuestro corazón)</p>
 
             <div class="tickets-container">
                 <div class="ticket"><span>🎟 Vale por:<br>Una salida al cine</span></div>
                 <div class="ticket"><span>🎟 Vale por:<br>Muchos besos</span></div>
-                <div class="ticket"><span>🎟 Vale por:<br>Ver el atardecer juntos</span></div>
+                <div class="ticket"><span>🎟 Vale por:<br>Ver el atardecer</span></div>
                 <div class="ticket"><span>🎟 Vale por:<br>Un hijo</span></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Corazones
         const container = document.getElementById('hearts-container');
         for (let i = 0; i < 15; i++) {
             let h = document.createElement('div');
@@ -281,40 +273,36 @@
             container.appendChild(h);
         }
 
-        // Navegación con transición lenta
         function nextPage(current, next) {
             const currPage = document.getElementById(current);
             const nextPage = document.getElementById(next);
-            
             currPage.style.opacity = '0';
             setTimeout(() => {
                 currPage.classList.remove('active');
                 nextPage.classList.add('active');
-                setTimeout(() => {
-                    nextPage.style.opacity = '1';
-                }, 50);
+                setTimeout(() => { nextPage.style.opacity = '1'; }, 50);
             }, 1200);
-
             document.getElementById("bgMusic").play().catch(() => {});
         }
 
         let scale = 1;
         function growYes() {
-            scale += 0.5;
-            document.getElementById('btnYes').style.transform = `scale(${scale})`;
+            // Hacemos que el SI crezca
+            scale += 0.3;
+            const btnYes = document.getElementById('btnYes');
+            btnYes.style.transform = `scale(${scale})`;
+            
+            // Movemos el NO a una posición aleatoria para que no se encime
             const btnNo = document.getElementById('btnNo');
-            btnNo.style.position = 'absolute';
-            btnNo.style.left = Math.random() * 70 + '%';
-            btnNo.style.top = Math.random() * 70 + '%';
+            btnNo.style.position = 'fixed'; // Fixed para que se mueva por toda la pantalla del cel
+            
+            // Calculamos posiciones seguras para que no se salga de la pantalla
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
