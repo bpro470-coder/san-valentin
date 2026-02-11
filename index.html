@@ -3,125 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Quieres ser mi San Valentín?</title>
+<title>Valentine Edition</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
-    height:100vh;
+    font-family:'Playfair Display', serif;
+    background:#f8c8d8;
+    color:#5a1e2b;
+    overflow-x:hidden;
+}
+
+.section{
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    font-family:'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#ff4e8a,#ff9ecf);
-    overflow:hidden;
+    padding:40px;
     text-align:center;
 }
 
 h1{
-    color:white;
-    font-size:clamp(24px, 5vw, 40px);
-    margin-bottom:20px;
+    font-size:clamp(30px,5vw,60px);
+}
+
+.script{
+    font-family:'Great Vibes', cursive;
+    font-size:clamp(40px,6vw,80px);
+    color:#b11226;
 }
 
 button{
-    padding:15px 30px;
+    padding:15px 35px;
     font-size:18px;
-    border:none;
-    border-radius:50px;
-    margin:10px;
+    border-radius:40px;
+    border:2px solid #b11226;
+    background:transparent;
+    color:#b11226;
     cursor:pointer;
-    transition:0.3s ease;
+    margin:10px;
+    transition:.3s;
 }
 
-#yesBtn{
-    background:white;
-    color:#ff2f6d;
-    font-weight:bold;
-}
-
-#yesBtn:hover{
-    transform:scale(1.1);
-}
-
-#noBtn{
-    background:#ff2f6d;
+button:hover{
+    background:#b11226;
     color:white;
-    position:relative;
 }
 
-#mensaje{
+.hidden{
     display:none;
-    margin-top:20px;
-    font-size:clamp(20px, 4vw, 30px);
+}
+
+img{
+    max-width:300px;
+    border-radius:20px;
+    margin:20px 0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.red{
+    background:#c61d2d;
     color:white;
-    animation: aparecer 1s ease forwards;
 }
 
-@keyframes aparecer{
-    from{opacity:0; transform:scale(0.8);}
-    to{opacity:1; transform:scale(1);}
-}
-
-/* corazones */
-.heart{
-    position:absolute;
+.red h1{
     color:white;
-    font-size:20px;
-    animation: float 5s linear infinite;
-}
-
-@keyframes float{
-    0%{transform:translateY(100vh); opacity:1;}
-    100%{transform:translateY(-10vh); opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<h1>¿Quieres ser mi San Valentín? 💖</h1>
+<!-- 🎵 MUSICA -->
+<audio id="musica" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 
-<div>
-<button id="yesBtn">Sí obvio 😍</button>
-<button id="noBtn">No 😒</button>
+<!-- PORTADA -->
+<div class="section" id="inicio">
+    <h1>Valentine Edition</h1>
+    <p>Edición especial para la persona más increíble</p>
+    <button onclick="empezar()">Abrir sorpresa 💌</button>
 </div>
 
-<div id="mensaje">Sabía que dirías que sí 💕✨</div>
+<!-- PREGUNTA -->
+<div class="section hidden" id="pregunta">
+    <h1 class="script">Alondreas...</h1>
+    <h1>¿Quieres ser mi</h1>
+    <h1 class="script">San Valentín?</h1>
+
+    <button onclick="aceptar()">Sí, obvio Brandon 😍</button>
+    <button id="noBtn">No 😒</button>
+</div>
+
+<!-- REVISTA -->
+<div class="section hidden" id="revista">
+
+    <h1>14 de Febrero 2026</h1>
+
+    <h2>Después de que el mundo hiciera su magia...</h2>
+
+    <p>
+    Desde que llegaste a mi vida entendí algo muy claro:
+    quiero vivir este y todos los San Valentín contigo.
+    </p>
+
+    <img src="foto.jpg">
+
+    <h2>5 razones por las que eres mi elección perfecta:</h2>
+
+    <p>1. Tienes la sonrisa más hermosa del universo.</p>
+    <p>2. Haces que mi corazón lata más rápido.</p>
+    <p>3. Contigo cualquier día se siente especial.</p>
+    <p>4. Eres mi persona favorita para compartir momentos.</p>
+    <p>5. No imagino este 14 de febrero sin ti.</p>
+
+    <button onclick="final()">Siguiente página →</button>
+</div>
+
+<!-- FINAL -->
+<div class="section red hidden" id="final">
+
+    <h1>Confirmado oficialmente:</h1>
+    <h1 class="script">Eres mi San Valentín 💖</h1>
+
+    <p>
+    Gracias por decir que sí, Alondreas.
+    Prepárate para un día lleno de amor,
+    sonrisas inevitables y recuerdos inolvidables.
+    </p>
+
+</div>
 
 <script>
+const musica = document.getElementById("musica");
 const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const mensaje = document.getElementById("mensaje");
 
-let scale = 1;
-
-noBtn.addEventListener("mouseover", ()=>{
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 100 - 50;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-});
-
-yesBtn.addEventListener("click", ()=>{
-    mensaje.style.display="block";
-    yesBtn.style.transform="scale(1.2)";
-    lanzarCorazones();
-});
-
-function lanzarCorazones(){
-    for(let i=0;i<20;i++){
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML="💖";
-        heart.style.left=Math.random()*100+"vw";
-        heart.style.fontSize=(20+Math.random()*30)+"px";
-        heart.style.animationDuration=(3+Math.random()*3)+"s";
-        document.body.appendChild(heart);
-
-        setTimeout(()=>heart.remove(),5000);
-    }
+function empezar(){
+    document.getElementById("inicio").classList.add("hidden");
+    document.getElementById("pregunta").classList.remove("hidden");
+    musica.play();
 }
+
+function aceptar(){
+    document.getElementById("pregunta").classList.add("hidden");
+    document.getElementById("revista").classList.remove("hidden");
+}
+
+function final(){
+    document.getElementById("revista").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+}
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random()*200-100;
+    const y = Math.random()*100-50;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
 </script>
 
 </body>
