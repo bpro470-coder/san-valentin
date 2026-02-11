@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Edition</title>
+<title>Valentine Edition - Alondra</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -11,23 +11,31 @@
 body{
     margin:0;
     font-family:'Playfair Display', serif;
-    background:#f8c8d8;
-    color:#5a1e2b;
-    overflow-x:hidden;
+    background:#f7b6c2;
+    overflow:hidden;
 }
 
-.section{
-    min-height:100vh;
+.page{
+    position:absolute;
+    width:100%;
+    height:100vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    padding:40px;
     text-align:center;
+    padding:40px;
+    transition:transform 1s ease, opacity 1s ease;
+}
+
+.hidden{
+    transform:translateX(100%);
+    opacity:0;
 }
 
 h1{
-    font-size:clamp(30px,5vw,60px);
+    font-size:clamp(28px,5vw,60px);
+    color:#8b1e3f;
 }
 
 .script{
@@ -40,129 +48,127 @@ button{
     padding:15px 35px;
     font-size:18px;
     border-radius:40px;
-    border:2px solid #b11226;
-    background:transparent;
-    color:#b11226;
+    border:none;
+    background:#b11226;
+    color:white;
     cursor:pointer;
-    margin:10px;
-    transition:.3s;
+    margin-top:20px;
 }
 
 button:hover{
-    background:#b11226;
-    color:white;
+    transform:scale(1.05);
 }
 
-.hidden{
-    display:none;
+.heart-float{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
 }
 
-img{
-    max-width:300px;
-    border-radius:20px;
-    margin:20px 0;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
 }
 
-.red{
-    background:#c61d2d;
-    color:white;
+/* Corazón abierto */
+.locket{
+    font-size:80px;
+    cursor:pointer;
+    transition:transform 0.5s;
 }
 
-.red h1{
-    color:white;
+.open{
+    transform:scale(1.2) rotateY(180deg);
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSICA -->
-<audio id="musica" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- CORAZONES FLOTANDO -->
+<script>
+for(let i=0;i<25;i++){
+    let heart=document.createElement("div");
+    heart.className="heart-float";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(heart);
+}
+</script>
 
-<!-- PORTADA -->
-<div class="section" id="inicio">
-    <h1>Valentine Edition</h1>
-    <p>Edición especial para la persona más increíble</p>
-    <button onclick="empezar()">Abrir sorpresa 💌</button>
+<!-- PAGINA 1 -->
+<div class="page" id="p1">
+    <h1>Valentine Edition 📰💗</h1>
+    <p>Edición especial dedicada a</p>
+    <h1 class="script">Alondra</h1>
+    <button onclick="next('p1','p2')">Abrir edición 💌</button>
 </div>
 
-<!-- PREGUNTA -->
-<div class="section hidden" id="pregunta">
-    <h1 class="script">Alondreas...</h1>
-    <h1>¿Quieres ser mi</h1>
-    <h1 class="script">San Valentín?</h1>
-
-    <button onclick="aceptar()">Sí, obvio Brandon 😍</button>
-    <button id="noBtn">No 😒</button>
+<!-- PAGINA 2 -->
+<div class="page hidden" id="p2">
+    <h1>Alondra...</h1>
+    <h1 class="script">¿Quieres ser mi San Valentín? 💘</h1>
+    <button onclick="next('p2','p3')">Sí, obvio 😍</button>
 </div>
 
-<!-- REVISTA -->
-<div class="section hidden" id="revista">
-
-    <h1>14 de Febrero 2026</h1>
-
-    <h2>Después de que el mundo hiciera su magia...</h2>
-
+<!-- PAGINA 3 -->
+<div class="page hidden" id="p3">
+    <h1>📰 Titular del día</h1>
     <p>
-    Desde que llegaste a mi vida entendí algo muy claro:
-    quiero vivir este y todos los San Valentín contigo.
+    “Un chico completamente enamorado confirma que
+    no quiere pasar ningún 14 de febrero sin Alondra.”
     </p>
-
-    <img src="foto.jpg">
-
-    <h2>5 razones por las que eres mi elección perfecta:</h2>
-
-    <p>1. Tienes la sonrisa más hermosa del universo.</p>
-    <p>2. Haces que mi corazón lata más rápido.</p>
-    <p>3. Contigo cualquier día se siente especial.</p>
-    <p>4. Eres mi persona favorita para compartir momentos.</p>
-    <p>5. No imagino este 14 de febrero sin ti.</p>
-
-    <button onclick="final()">Siguiente página →</button>
+    <p>💗 Eres mi persona favorita.</p>
+    <button onclick="next('p3','p4')">Siguiente página ➡</button>
 </div>
 
-<!-- FINAL -->
-<div class="section red hidden" id="final">
+<!-- PAGINA 4 -->
+<div class="page hidden" id="p4">
+    <h1>Sección Especial 💞</h1>
+    <p>Desde que llegaste todo es más bonito.</p>
+    <p>Tu sonrisa ilumina mis días ✨</p>
+    <p>Tu voz calma mi mundo 🌎</p>
+    <p>Y tu amor me hace el más feliz 💘</p>
+    <button onclick="next('p4','p5')">Continuar ➡</button>
+</div>
 
+<!-- PAGINA 5 (DISCULPA) -->
+<div class="page hidden" id="p5">
+    <h1>Nota del editor 💌</h1>
+    <p>
+    Perdón por haber escrito mal tu nombre antes.
+    Porque Alondra se escribe perfecto,
+    igual que lo que siento por ti ❤️
+    </p>
+    <button onclick="next('p5','p6')">Última página 💖</button>
+</div>
+
+<!-- PAGINA FINAL -->
+<div class="page hidden" id="p6" style="background:#c61d2d; color:white;">
     <h1>Confirmado oficialmente:</h1>
-    <h1 class="script">Eres mi San Valentín 💖</h1>
+    <h1 class="script">Eres mi San Valentín 💘</h1>
 
-    <p>
-    Gracias por decir que sí, Alondreas.
+    <div id="locket" class="locket" onclick="abrir()">💛</div>
+    <p id="iniciales" style="display:none; font-size:30px;">A + B 💖</p>
+
+    <p style="max-width:400px;">
+    Gracias por decir que sí, Alondra.
     Prepárate para un día lleno de amor,
-    sonrisas inevitables y recuerdos inolvidables.
+    abrazos inevitables y recuerdos eternos.
     </p>
-
 </div>
 
 <script>
-const musica = document.getElementById("musica");
-const noBtn = document.getElementById("noBtn");
-
-function empezar(){
-    document.getElementById("inicio").classList.add("hidden");
-    document.getElementById("pregunta").classList.remove("hidden");
-    musica.play();
+function next(actual,siguiente){
+    document.getElementById(actual).classList.add("hidden");
+    document.getElementById(siguiente).classList.remove("hidden");
 }
 
-function aceptar(){
-    document.getElementById("pregunta").classList.add("hidden");
-    document.getElementById("revista").classList.remove("hidden");
+function abrir(){
+    document.getElementById("locket").innerHTML="💖";
+    document.getElementById("iniciales").style.display="block";
 }
-
-function final(){
-    document.getElementById("revista").classList.add("hidden");
-    document.getElementById("final").classList.remove("hidden");
-}
-
-noBtn.addEventListener("mouseover",()=>{
-    const x = Math.random()*200-100;
-    const y = Math.random()*100-50;
-    noBtn.style.transform=`translate(${x}px,${y}px)`;
-});
 </script>
 
 </body>
